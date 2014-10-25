@@ -1,0 +1,12 @@
+.popup { padding: 18px 0 15px; }
+.popup ul { margin: 0 !important; list-style: none; padding: 0 !important; border: 0 !important; }
+.popup ul li { margin: 0 0 10px; min-height:21px; }
+
+.popup ul li.nombre  { font-weight: bold; padding-left: 25px; background: none; }
+.popup ul li.ubicacion{ padding-left: 25px; background: url(../images/map/icon-home.png) left top no-repeat; }
+.popup ul li.publico{ padding-left: 25px; background: url(../images/map/icon-info.png) left top no-repeat; }
+.popup ul li.precio{ padding-left: 25px; background: url(../images/map/icon-price.png) left top no-repeat; }
+.popup ul li.link{ padding-left: 25px; background: url(../images/map/icon-rarr.png) left top no-repeat; }
+
+.popup a, a:visited.link { color: #FFFFFF; text-decoration: underline;}
+.popup a:hover, a:focus.link { color: #FFFFFF; text-decoration: none;}

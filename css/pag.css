@@ -1,0 +1,88 @@
+.firstBlur
+{
+    width:12px;
+    height:10px;
+    background-image:url(../images/firstBlur.png);
+    background-repeat:no-repeat;
+}
+.firstBlur:hover
+{
+    background-image:url(../images/firstBlurHover.png);
+}
+.firstDisabled
+{
+    display:block;
+}
+.prevBlur
+{
+    width:9px;
+    height:10px;
+    background-image:url(../images/prevBlur.png);
+    background-repeat:no-repeat;
+    cursor:pointer;
+    display:block;
+}
+.prevBlur:hover
+{
+    background-image:url(../images/prevBlurHover.png);
+}
+.prevDisabled
+{
+    width:9px;
+    height:10px;
+    display:block;
+    background-image:url(../images/prevDisabled.png);
+    background-repeat:no-repeat;
+}
+
+.endBlur
+{
+    width:12px;
+    height:10px;
+    background-image:url(../images/endtBlur.png);
+    background-repeat:no-repeat;
+    cursor:pointer;
+    display:block;
+}
+.endBlur:hover
+{
+    background-image:url(../images/endBlurHover.png);
+}
+.endDisabled
+{
+    width:12px;
+    height:10px;
+    display:block;
+}
+.prevBlur
+{
+    width:9px;
+    height:10px;
+    background-image:url(../images/prevBlur.png);
+    background-repeat:no-repeat;
+    cursor:pointer;
+    display:block;
+}
+
+.nextBlur
+{
+    width:19px;
+    height:15px;
+    display:block;
+    background-image:url(../images/nextBlur.png);
+    background-repeat:no-repeat;
+    cursor:pointer;
+}
+.nextBlur:hover
+{
+    background-image:url(../images/nextBlurHover.png);
+}
+.nextDisabled
+{
+    width:19px;
+    height:15px;
+    display:block;
+    background-image:url(../images/nextDisabled.png);
+    background-repeat:no-repeat;
+    border:none;
+}
