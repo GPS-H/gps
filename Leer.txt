@@ -1,0 +1,24 @@
+Hola :)
+
+Que onda...pues aqui me tomé la molestia de empezar con la programación OO en php, de la menera en que que lo hice lo veo facil, si gustas puedes modificarlo
+o optimizar el código. Lo que hice fue lo siguiente:
+
++index.php --> sera el login de usuarios.
+	-Hace uso de clase_conexion.php --> que sera la clase que hare la conección con la BD
+	-Hace uso de clase_login.php --> este dependera de clase_conexion.php, pues hara una consulta para dar el acceso;
+
++administrador.php
+	-Hace uso de head.php --> y este tendrá el head base (css, js) 
+	-Hace uso de header.php -->y este tendrá el menú base (cambiara el menu dependiendo del tipo de usuario que accedió)
+	-Hace uso de cerrarSesión -->para salir del sistema
+
+La interfaz gráfica muestra lo que se me ocurrió que se pudieras hacer pero dinamico.
+
+Que cuando el usuario entre al sistema le muestre las novedades, digamos 
+	+pacientes proximos a cambiar de filtro
+	+pacientes que no asisitieron a sus citas y se tiene que reprogramar su citas.
+	+pacientes con cambio de filtro el dia de hoy.
+
+
+
+
