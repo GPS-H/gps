@@ -22,6 +22,7 @@ else{
 		<?php include("head.php"); ?>
 		<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
 		<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+		<link href="css/css/bootstrap.css" rel="stylesheet" type="text/css"/>
 
 	</head>
 	<body>

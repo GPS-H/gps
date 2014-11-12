@@ -6,24 +6,68 @@ if(!isset($_SESSION['usuario']) and !isset ($_SESSION['tipo_usuario'])){
 }
 $usuario=limpiar($_SESSION['usuario']);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<?php include("head.php"); ?>
-		<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
-		<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+		<link href="css/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="js/js/jquery.js"></script> 
+		<script type="text/javascript" src="js/js/typeahead.js"></script> 
 
+		<style>
+
+		.typeahead-devs, .tt-hint,.buscar,.allcountry  {
+		 	border: 2px solid #CCCCCC;
+		    border-radius: 8px 8px 8px 8px;
+		    font-size: 20px;
+		    height: 35px;
+		    outline: medium none;
+		    width: 350px;
+		}
+
+		.tt-dropdown-menu {
+		  width: 350px;
+		  margin-top: 5px;
+		  padding: 8px 12px;
+		  background-color: #F1F1F1;
+		}
+
+		</style>
+		<script>
+			$(document).ready(function() {
+				$('input.buscar').typeahead({
+					  name: 'buscar',
+					  remote : 'buscar.php?query=%QUERY'
+				});
+			})
+		</script>
 	</head>
 	<body>
 		<?php include("header.php"); ?>
 		<div class="container">
-			<table class="table table-bordered">
+      <?php
+        //LLENAMOS LA BASE DE DATOS
+        require_once("bd/conexion.php");      
+		$query = $mysqli->query('select *from pacientes');
+       ?>
+			<table class="table table-bordered" id="example">
 			  <tr class="info">
 				<td>
 					<div class="row-fluid">
-						<div class="span5">
-							<h3 class="text-info"><img src="img/usuario.png" class="img-circle" width="80" height="80"> 
-							Registro y Control de Pacientes</h3>        
+						<div class="span2">
+							<h3 class="text-info"><img src="img/usuario.png" class="img-circle" width="60" height="60"> 
+							Control de Pacientes</h3>        
+						</div>
+					</div>
+				</td>
+				<td>
+					<div class="row-fluid">
+						<div class="span4">
+							<h3 class="text-info"> <img src="img/busca.jpg" class="img-circle" width="50" height="50"> Buscar:</h3>
+				              <form method="POST" action="#">
+				              <input type="text" name="buscar" size="18" class="buscar" placeholder="introdusca sus apellidos">
+				              </form>
 						</div>
 					</div>
 				</td>
@@ -34,38 +78,32 @@ $usuario=limpiar($_SESSION['usuario']);
 			  <tr class="info">
 				<td><strong>Nombres</strong></td>
 				<td><strong>Apellidos</strong></td>
-				<td><strong>Direccion</strong></td>
-				<td><strong>Correo</strong></td>
-				<td><strong><center>Telefono</center></strong></td>
-				<td><strong><center>Celular</center></strong></td>
-				<td><strong><center>Filtro</center></strong></td>
-				<td><strong><center>Operacion</center></strong></td>
-				<td>&nbsp;</td>
+				<td><strong>Dirección</strong></td>
+                <td><strong>email</strong></td>
+                <td><strong>celular</strong></td>
+                <td><strong>teléfono</strong></td>
 			  </tr>
-			  <tr>
-				<td>Nombre1</td>
-				<td>Apellido1</td>
-				<td>Conocido</td>
-				<td>Correo1</td>
-				<td>92838373</td>
-				<td>93938383</td>
-				<td>ID del filtro</td>
-				<td>
-					<center>
-					<a href="#" role="button" class="btn btn-mini" data-toggle="modal" title="Actualizar Informacion">
-						<i class="icon-edit">eliminar</i>
-					</a>
-					<a href="#" role="button" class="btn btn-mini" data-toggle="modal" title="Asignar Materias">
-						<i class="icon-briefcase">actualizar</i>
-					</a>
-					</center>
-				</td>
-			  </tr>
+            <tbody>
+            <?php
+            //SACAMOS LOS REGISTROS DE LA TABLA
+			while($row = $query->fetch_assoc()) {
+             ?>
+            <tr>
+                <td><?php echo $row["Nombre"]; ?></td>
+                <td><?php echo $row["Apellidos"]; ?></td>
+                <td><?php echo $row["Direccion"]; ?></td>
+                <td><?php echo $row["Correo"]; ?></td>
+                <td><?php echo $row["Telefono"]; ?></td>
+                <td><?php echo $row["Celular"]; ?></td>
+            </tr>                
+                <?php
+            }
+            ?> 
 			</table>
 		</div>
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="js/jquery.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="js/bootstrap.min.js"></script>
+
 	</body>
 </html>

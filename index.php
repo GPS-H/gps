@@ -1,3 +1,4 @@
+
 <?php 
 require_once 'clases/clase_login.php';
 $msg="";
@@ -12,6 +13,9 @@ if(isset ($_GET['usuario'])){
 	else if($_GET['usuario']=='inactivo'){
 		$msg='<label>Usuario Inactivo consulte con el <span class="blue">Administrador!</span></label>';
 	}
+}
+if(isset($_SESSION['usuario']) and isset ($_SESSION['tipo_usuario'])){
+    header('location:administrador.php');
 }
 ?>
 <!DOCTYPE html>

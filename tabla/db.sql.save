@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS `alumnos` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(255) NOT NULL,
+  `apellido` varchar(255) NOT NULL,
+  `nit` varchar(255) NOT NULL,
+  `telefono` varchar(255) NOT NULL,
+  `fechan` date NOT NULL,
+  `folio` varchar(255) NOT NULL,
+  `curso` varchar(255) NOT NULL,
+  `estado` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;cds

@@ -10,7 +10,7 @@
 	$(function() {
 		<?php
 			while($row = $query->fetch_assoc()) {
-      			$elementos[]= '"'.$row['nombre'].'"';
+      			$elementos[]= '"'.$row['Nombre'].'"';
 			}
 			$arreglo= implode(", ", $elementos);
 		?>	
