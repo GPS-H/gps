@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
-$uname = "root";
-$pass = "Fobialuis.1542";
+$uname = "gps";
+$pass = "12345";
 $database = "scmth";
 
 $connection=mysql_connect($host,$uname,$pass) or die("connection in not ready <br>");
