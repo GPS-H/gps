@@ -24,8 +24,8 @@ if(isset($_SESSION['usuario']) and isset ($_SESSION['tipo_usuario'])){
     <meta charset="utf-8">
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Responsive HTML template for Your company">
-    <meta name="author" content="Oskar Żabik (oskar.zabik@gmail.com)">
+    <meta name="description" content="Sistema de control de tramiento de Hemodialisis">
+    <meta name="author" content="Instituto Tecnológico de Oaxaca">
 
     <!-- Le styles -->
     <link href="css/inicio/bootstrap.min.css" rel="stylesheet">

@@ -28,7 +28,7 @@
 								</ul>
 							</li>
 						<?php if($_SESSION['tipo_usuario']=='a'){   ?>
-							<li><a href="#"><span class="glyphicon glyphicon-eye-open"></span> Usuarios</a></li>
+							<li><a href="usuarios.php"><span class="glyphicon glyphicon-eye-open"></span> Usuarios</a></li>
 						<?php } ?>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
