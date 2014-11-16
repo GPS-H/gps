@@ -91,6 +91,7 @@ include("bd/conexion.php")
                 </tr>
             </thead>
            <tbody>
+		   </tbody>
 		   </body>
 	</table>
 	</div>
@@ -98,18 +99,10 @@ include("bd/conexion.php")
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		
 		<script src="js/bootstrap.min.js"></script>
-<<<<<<< HEAD
 		<script type="text/javascript" src="js/assets/js/js.js"></script>
 
 		<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
 		
 		
-=======
-		
-		
-		<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
-		<script type="text/javascript" src="js/assets/js/js.js"></script>
-
->>>>>>> 46cfff9f18cc7cc7f873a2d4ad45d29eff62ab60
 	
 </html>
