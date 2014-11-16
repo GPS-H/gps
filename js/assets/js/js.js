@@ -1,7 +1,6 @@
 // JavaScript Document
 var ordenar = '';
 $(document).ready(function(){
-	
 	// Llamando a la funcion de busqueda al
 	// cargar la pagina
 	filtrar()
@@ -21,18 +20,16 @@ $(document).ready(function(){
 				dates.not( this ).datepicker( "option", option, date );
 			}
 	});
-	
-	// filtrar al darle click al boton
+// realiza la funcion al momento de teclear dentro del INPUT con ID=nombre -->(BUSCAR) :P
 	$('#nombre').keyup(function(){ filtrar() });
-	
-	// boton cancelar
+     
+	// boton cancelar  (no existe por el momento :)  es opcional fue prueba de ejemplo
 	$("#btncancel").click(function(){ 
 		$(".filtro input").val('')
 		$(".filtro select").find("option[value='0']").attr("selected",true)
 		filtrar() 
 	});
-	
-	// ordenar por
+// ordenar por (ordena la tablas al dar click en los TITULOS) :P
 	$("#data th span").click(function(){
 		var orden = '';
 		if($(this).hasClass("desc"))
@@ -49,7 +46,7 @@ $(document).ready(function(){
 		filtrar()
 	});
 });
-
+// funcion filtrar la que hace todo :P
 function filtrar()
 {	
 	$.ajax({

@@ -17,14 +17,12 @@ include("bd/conexion.php")
 		
 		<?php include("head.php"); ?>
 		<script type="text/javascript" src="js/jquery-1.5.1.min.js"></script>
-		
 		<link href="css/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-		
-		
 		<script type="text/javascript" src="js/js/jquery.js"></script> 
 		<script type="text/javascript" src="js/js/typeahead.js"></script> 
-	
-
+		<script src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/assets/js/js.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
 		<style>
 		.typeahead-devs, .tt-hint,.buscar,.allcountry  {
 		 	border: 2px solid #CCCCCC;
@@ -54,9 +52,7 @@ include("bd/conexion.php")
 	<body>
 		<?php include("header.php"); ?>
 		<div class="container">
-     
-	  
-			<table class="table table-bordered" id="example">
+   			<table class="table table-bordered" id="example">
 			  <tr class="info">
 				<td>
 					<div class="row-fluid">
@@ -80,29 +76,21 @@ include("bd/conexion.php")
 			</table>
              
 			<table class="table table-bordered table table-hover" id="data">
-			<thead>
-            	<tr class="info">
-                    <th ><span title="nombre">Nombre</span></th>
-                    <th ><span title="apellidos">Apellidos</span></th>
-                    <th ><span title="direccion">Direccion</span></th>
-                    <th><span title="email">Email</span></th>
-					<th><span title="celular">Celular</span></th>
-					<th><span title="telefono">Telefono</span></th>
-                </tr>
-            </thead>
-           <tbody>
-		   </tbody>
+					<thead>
+							<tr class="info">
+								<th><span title="nombre">Nombre</span>	</th>
+								<th><span title="apellidos">Apellidos</span></th>
+								<th><span title="direccion">Direccion</span></th>
+								<th><span title="email">Email</span></th>
+								<th><span title="celular">Celular</span></th>
+								<th><span title="telefono">Telefono</span></th>
+							</tr>
+					</thead>
+					<tbody>
+					</tbody>
+			</table>
 		   </body>
-	</table>
 	</div>
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		
-		<script src="js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/assets/js/js.js"></script>
-
-		<script type="text/javascript" src="js/jquery-ui-1.8.13.custom.min.js"></script>
-		
-		
-	
 </html>
