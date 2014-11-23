@@ -16,13 +16,15 @@
 		$nombre=$objUsuario->consultar('nombre');
 		$nombre=ucwords(strtolower($nombre));
 		
-		$can=mysql_query("SELECT COUNT(nombre)as numero FROM paciente");
+		$can=mysql_query("SELECT COUNT(id_paciente)as numero FROM registro where fecha_lavado>'2014/11/11'");
 		if($dato=mysql_fetch_array($can)){
 			$n_profesor=$dato['numero'];
+            $n_profesor=$n_profesor-360;
 		}
 		$can=mysql_query("SELECT COUNT(nombre)as numero FROM usuario");
 		if($dato=mysql_fetch_array($can)){
 			$n_materias=$dato['numero'];
+            $n_materias=$n_materias-15;
 		}
 		$can=mysql_query("SELECT COUNT(nombre)as numero FROM usuario");
 		if($dato=mysql_fetch_array($can)){
@@ -98,12 +100,12 @@
                             <div class="icon">
                                 <div class="image"><span class="glyphicon glyphicon-list-alt btn-lg white"></span></div>
                                 <div class="info">
-                                    <h3 class="title">Recalendarización!</h3>
+                                    <h3 class="title">Pacientes nuevos!</h3>
                                     <p>
-                                        <h3>Registrados: <?php echo $n_materias; ?></h3><br>
+                                        <h3>Ultimos pacientes registrados: <?php echo $n_materias; ?></h3><br>
                                     </p>
                                     <div class="more">
-                                        <a href="#" title="Title Link"><i class="fa fa-plus"></i> Mas Información
+                                        <a href="#" title="Title Link"><i class="fa fa-plus"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -116,12 +118,12 @@
                             <div class="icon">
                                 <div class="image"><span class="glyphicon glyphicon-envelope btn-lg white"></span></div>
                                 <div class="info">
-                                    <h3 class="title">Avizo!</h3>
+                                    <h3 class="title">Citas!</h3>
                                     <p>
-                                        <h3>Registrados: <?php echo $n_profesor; ?></h3><br>
+                                        <h3>Citas para el dia de hoy: <?php echo $n_alumno; ?></h3><br>
                                     </p>
                                     <div class="more">
-                                        <a href="#" title="Title Link"><i class="fa fa-plus"></i> Mas Información
+                                        <a href="#" title="Title Link"><i class="fa fa-plus"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -134,12 +136,12 @@
                             <div class="icon">
                                 <div class="image"><span class="glyphicon glyphicon-volume-up btn-lg white"></span></div>
                                 <div class="info">
-                                    <h3 class="title">Filtro Nuevo!</h3>
+                                    <h3 class="title">Cambio de Filtro!</h3>
                                     <p>
-                                        <h3>Registrados: <?php echo $n_materias; ?></h3><br>
+                                        <h3>Cantidad de filtros proximos a cambiar: <?php echo $n_profesor; ?></h3><br>
                                     </p>
                                     <div class="more">
-                                        <a href="#" title="Title Link"><i class="fa fa-plus"></i> Mas Información
+                                        <a href="#" title="Title Link"><i class="fa fa-plus"></i>
                                         </a>
                                     </div>
                                 </div>

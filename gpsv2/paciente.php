@@ -8,7 +8,7 @@
 		$bus='';#inicializar la variable
 				
 		#paginar
-		$maximo=50;
+		$maximo=20;
 		if(!empty($_GET['pag'])){
 			$pag=limpiar($_GET['pag']);
 		}else{
@@ -28,11 +28,23 @@
             $sexo=limpiar($_POST['sexo']);                  $edad=limpiar($_POST['edad']);
             if(isset($_POST['guardar'])){
                 #guardar
-                $objGuardar=new ProcesoPaciente('',$nombre,$apellidos,$direccion,$correo,$telefono,$celular,$sexo,$edad);
-                $objGuardar->crear();
+                $estado_filtro='NUEVO';
+                $objConsultaPaciente=new ConsultarPaciente($direccion);
+                $objConsultaFiltro=new ConsultarFiltro($estado_filtro);
+                $id_paciente1=$objConsultaPaciente->consultar('id_paciente');
+                $id_filtro=$objConsultaFiltro->consultar('id_filtro');
+                $numero_lavado=$objConsultaFiltro->consultar('numero_lavado');
+                $razon_desecho=$objConsultaFiltro->consultar('razon_desecho');
+                $estado_filtro='USO';
+                $objGuardarPaciente=new ProcesoPaciente('',$nombre,$apellidos,$direccion,$correo,$telefono,$celular,$sexo,$edad);
+                $objActualizarFiltro=new ProcesoFiltro($id_filtro,$numero_lavado,$estado_filtro,$razon_desecho);
+                $objGuardarAsignacion=new ProcesoAsignacion($id_paciente1,$id_filtro);
+                $objActualizarFiltro->actualizar();
+                $objGuardarPaciente->crear();
+                $objGuardarAsignacion->crear();
                 $msg='  <div class="alert alert-success" align="center">
                         <button type="button" class="close" data-dismiss="alert">×</button>
-                        <strong>El paciente "'.$nombre.' '.$apellidos.'" fue Guardado con Exito</strong>
+                        <strong>"'.$id_paciente1.' '.$id_filtro.' '.$numero_lavado.' '.$razon_desecho.'"</strong>
                         </div>';
             }
             else if(isset($_POST['actualizar'])){
@@ -135,7 +147,6 @@
         <td><strong>Correo</strong></td>
         <td><strong>Telefono</strong></td>
         <td><strong>Celular</strong></td>
-        <td><strong>Sexo</strong></td>
         <td><strong>Edad</strong></td>
         <td>&nbsp;</td>
       </tr>
@@ -155,16 +166,17 @@
         <td><?php echo $dato['correo']; ?></td>
         <td><?php echo $dato['telefono'];?></td>
         <td><?php echo $dato['celular']; ?></td>
-        <td><?php echo $dato['sexo']; ?></td>
         <td><?php echo $dato['edad']; ?></td>
         <td>
         	<center>
         	<a href="#act<?php echo $dato['id_paciente']; ?>" role="button" class="btn btn-info" data-toggle="modal" title="Actualizar Informacion">
             	Actualizar
             </a>
+            <?php if($_SESSION['tipo_usuario']=='A'){   ?>
             <a href="#eli<?php echo $dato['id_paciente']; ?>" role="button" class="btn btn-danger" data-toggle="modal" title="Eliminar paciente">
                 Eliminar
             </a>
+             <?php } ?>
             </center>
         </td>
       </tr>

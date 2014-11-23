@@ -2,7 +2,10 @@
         require_once("clases/clase_login.php");
         include_once('clases/clases.php');
         if(!isset($_SESSION['usuario']) and !isset ($_SESSION['tipo_usuario'])){
-          header('location:index.php');
+            header('location:index.php');
+        }
+        if($_SESSION['tipo_usuario']=='B'){
+            header('location:error.php');
         }
 
 		$bus='';#inicializar la variable

@@ -79,32 +79,21 @@ else{
               <li class="active">
                 <a href="paciente.php" target="admin"><strong>Pacientes</strong></a>
               </li>
+              <?php if($_SESSION['tipo_usuario']=='A'){   ?>
               <li class="active">
                 <a href="usuario.php" target="admin"><strong>Usuarios</strong></a>
               </li>
               <li class="active">
-                <a href="#" target="admin"><strong>Filtros</strong></a>
+                <a href="asignacion.php" target="admin"><strong>Registros</strong></a>
               </li>
+              <?php } ?>
               <li class="active">
-                <a href="#" target="admin"><strong>Tratamiento</strong></a>
+                <a href="reporteexcel.php" target="admin"><strong>Reportes</strong></a>
               </li>
-              <li class="active">
-                <a href="#" target="admin"><strong>Registros</strong></a>
-              </li>
-            </ul>
-            <ul class="nav pull-left"> 
-              <li id="fat-menu" class="dropdown active">
-              <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown"><strong>Reportes</strong> <b class="caret"></b></a>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" target="admin">Semanal</a></li>
-                <li role="presentation" class="divider"></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" href="php_cerrar.php"><i class="icon-off"></i> Mensual</a></li>
-              </ul>
-            </li>
             </ul>
             <ul class="nav pull-right">
             <li id="fat-menu" class="dropdown active">
-              <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown"><strong>Hola! <?php echo $nombre; ?></strong> <b class="caret"></b></a>
+              <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown"><strong> <?php echo $nombre; ?></strong> <b class="caret"></b></a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
                 <li role="presentation"><a role="menuitem" tabindex="-1" href="cambiar_clave.php" target="admin">Cambiar Contraseña</a></li>
                 <li role="presentation" class="divider"></li>
