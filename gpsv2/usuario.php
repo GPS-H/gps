@@ -106,11 +106,11 @@
 </head>
 <body data-spy="scroll" data-target=".bs-docs-sidebar">
 	<table class="table table-bordered">
-      <tr class="info">
+      <tr class="success">
         <td>
         	<div class="row-fluid">
 	  			<div class="span6">
-        			<h3 class="text-info"><img src="img/usuario.png" class="img-circle" width="80" height="80"> 
+        			<h3 class="text-info"><img src="img/usuario.png" class="img-circle" width="60" height="60"> 
                     Registro y Control de Usuarios</h3>
                 </div>
     			<div class="span6" align="right" >
@@ -121,7 +121,7 @@
                         </a> |
                     	<div class="input-prepend">
                         	<span class="add-on"><i class="icon-search"></i></span>
-                            <input name="bus" type="text" placeholder="Buscar usuario por Nombre" class="input-xlarge" autocomplete="off" autofocus>
+                            <input name="bus" type="text" placeholder="Buscar usuario por Nombre o Usuario" class="input-xlarge" autocomplete="off" autofocus>
                         </div>
                     </form>
                 </div>
@@ -131,7 +131,7 @@
     </table>
     <?echo $msg; ?>
     <table class="table table-bordered table table-hover">
-      <tr class="info">
+      <tr class="success">
         <td><strong>Usuario</strong></td>
         <td><strong>Nombre</strong></td>
         <td><strong>Correo</strong></td>
@@ -159,10 +159,10 @@
         <td>
         	<center>
         	<a href="#act<?php echo $dato['id_usuario']; ?>" role="button" class="btn btn-info" data-toggle="modal" title="Actualizar Usuario">
-            	Actualizar
+            	<i class="icon-edit"></i>
             </a>
             <a href="#eli<?php echo $dato['id_usuario']; ?>" role="button" class="btn btn-danger" data-toggle="modal" title="Eliminar Usuario">
-                Eliminar
+                <i class="icon-trash"></i>
             </a>
             </center>
         </td>

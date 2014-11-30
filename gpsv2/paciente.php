@@ -21,51 +21,60 @@
 			$total=$dat['total']; #inicializo la variable en 0
 		}
         $msg='';
+
         if( isset($_POST['guardar']) || isset($_POST['actualizar']) ){
-            $nombre=limpiar($_POST['nombre']);              $apellidos=limpiar($_POST['apellidos']);
-            $direccion=limpiar($_POST['direccion']);        $correo=limpiar($_POST['correo']);
-            $telefono=limpiar($_POST['telefono']);          $celular=limpiar($_POST['celular']);
-            $sexo=limpiar($_POST['sexo']);                  $edad=limpiar($_POST['edad']);
-            if(isset($_POST['guardar'])){
-                #guardar
-                $estado_filtro='NUEVO';
-                $objConsultaPaciente=new ConsultarPaciente($direccion);
-                $objConsultaFiltro=new ConsultarFiltro($estado_filtro);
-                $id_paciente1=$objConsultaPaciente->consultar('id_paciente');
-                $id_filtro=$objConsultaFiltro->consultar('id_filtro');
-                $numero_lavado=$objConsultaFiltro->consultar('numero_lavado');
-                $razon_desecho=$objConsultaFiltro->consultar('razon_desecho');
-                $estado_filtro='USO';
-                $objGuardarPaciente=new ProcesoPaciente('',$nombre,$apellidos,$direccion,$correo,$telefono,$celular,$sexo,$edad);
-                $objActualizarFiltro=new ProcesoFiltro($id_filtro,$numero_lavado,$estado_filtro,$razon_desecho);
-                $objGuardarAsignacion=new ProcesoAsignacion($id_paciente1,$id_filtro);
-                $objActualizarFiltro->actualizar();
-                $objGuardarPaciente->crear();
-                $objGuardarAsignacion->crear();
-                $msg='  <div class="alert alert-success" align="center">
+            $registrosfiltros=mysql_query("SELECT * FROM filtro WHERE numero_lavado=0 and estado_filtro='NUEVO'");
+            if ($datoss=mysql_num_rows($registrosfiltros) == 0){
+                $msg='  <div class="alert alert-danger" align="center">
                         <button type="button" class="close" data-dismiss="alert">×</button>
-                        <strong>"'.$id_paciente1.' '.$id_filtro.' '.$numero_lavado.' '.$razon_desecho.'"</strong>
+                        <strong>"No se pudo realizar la operacion, no hay filtros disponibles!"</strong>
                         </div>';
-            }
-            else if(isset($_POST['actualizar'])){
-                    $id_paciente=limpiar($_POST['id_paciente']);
-                    $objActualizar=new ProcesoPaciente($id_paciente,$nombre,$apellidos,$direccion,$correo,$telefono,$celular,$sexo,$edad);
-                    $objActualizar->actualizar();
-                    $msg='  <div class="alert alert-info" align="center">
-                                  <button type="button" class="close" data-dismiss="alert">×</button>
-                                  <strong>El paciente fue Actualizado con Exito</strong>
-                                </div>';
+            }else{
+                $nombre=limpiar($_POST['nombre']);              $apellidos=limpiar($_POST['apellidos']);
+                $direccion=limpiar($_POST['direccion']);        $correo=limpiar($_POST['correo']);
+                $telefono=limpiar($_POST['telefono']);          $celular=limpiar($_POST['celular']);
+                $sexo=limpiar($_POST['sexo']);                  $edad=limpiar($_POST['edad']);
+                if(isset($_POST['guardar'])){
+                    #guardar
+                    $estado_filtro='NUEVO';
+                    $objGuardarPaciente=new ProcesoPaciente('',$nombre,$apellidos,$direccion,$correo,$telefono,$celular,$sexo,$edad);
+                    $objGuardarPaciente->crear();
+                    $objConsultaPaciente=new ConsultarPaciente();
+                    $id_paciente1=$objConsultaPaciente->consultar('id_paciente');
+                    $objConsultaFiltro=new ConsultarFiltro($estado_filtro);
+                    $id_filtro=$objConsultaFiltro->consultar('id_filtro');
+                    $numero_lavado=$objConsultaFiltro->consultar('numero_lavado');
+                    $estado_filtro='USO';
+                    $razon_desecho=$objConsultaFiltro->consultar('razon_desecho');
+                    $objActualizarFiltro=new ProcesoFiltro($id_filtro,$numero_lavado,$estado_filtro,$razon_desecho);
+                    $objActualizarFiltro->actualizar();
+                    $objGuardarAsignacion=new ProcesoAsignacion($id_paciente1,$id_filtro);
+                    $objGuardarAsignacion->crear();
+                    $msg='  <div class="alert alert-success" align="center">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            <strong>"El paciente '.$nombre.' '.$apellidos.' a sido registrado y asignandole el filtro con id '.$id_filtro.'"</strong>
+                            </div>';
+                }
+                else if(isset($_POST['actualizar'])){
+                        $id_paciente=limpiar($_POST['id_paciente']);
+                        $objActualizar=new ProcesoPaciente($id_paciente,$nombre,$apellidos,$direccion,$correo,$telefono,$celular,$sexo,$edad);
+                        $objActualizar->actualizar();
+                        $msg='  <div class="alert alert-info" align="center">
+                                      <button type="button" class="close" data-dismiss="alert">×</button>
+                                      <strong>El paciente fue Actualizado con Exito</strong>
+                                    </div>';
+                }
             }
         }
-        else if(isset($_POST['eliminar'])){
-            #Eliminar
-            $id_paciente=limpiar($_POST['id_paciente']);
-            $objEliminar=new ProcesoPaciente($id_paciente,"","","","","","","","");
-            $objEliminar->eliminar();
-            $msg='  <div class="alert alert-danger" align="center">
-                            <button type="button" class="close" data-dismiss="alert">×</button>
-                            <strong>El paciente fue Eliminado con Exito</strong>
-                            </div>';
+            else if(isset($_POST['eliminar'])){
+                #Eliminar
+                $id_paciente=limpiar($_POST['id_paciente']);
+                $objEliminar=new ProcesoPaciente($id_paciente,"","","","","","","","");
+                $objEliminar->eliminar();
+                $msg='  <div class="alert alert-danger" align="center">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <strong>El paciente fue Eliminado con Exito</strong>
+                                </div>';
         }
 
     ?>
@@ -117,11 +126,11 @@
 </head>
 <body data-spy="scroll" data-target=".bs-docs-sidebar">
 	<table class="table table-bordered">
-      <tr class="info">
+      <tr class="success">
         <td>
         	<div class="row-fluid">
 	  			<div class="span6">
-        			<h3 class="text-info"><img src="img/usuario.png" class="img-circle" width="80" height="80"> 
+        			<h3 class="text-info"><img src="img/paciente.jpg" class="img-circle" width="60" height="60"> 
                     Registro y Control de Paciente</h3>
                 </div>
     			<div class="span6" align="right" >
@@ -132,7 +141,7 @@
                         </a> |
                     	<div class="input-prepend">
                         	<span class="add-on"><i class="icon-search"></i></span>
-                            <input name="bus" type="text" placeholder="Buscar paciente por Nombre" class="input-xlarge" autocomplete="off" autofocus>
+                            <input name="bus" type="text" placeholder="Buscar paciente por Nombre o Apellidos" class="input-xlarge" autocomplete="off" autofocus>
                         </div>
                     </form>
                 </div>
@@ -142,7 +151,7 @@
     </table>
     <?echo $msg; ?>
     <table class="table table-bordered table table-hover">
-      <tr class="info">
+      <tr class="success">
         <td><strong>Apellido y Nombre</strong></td>
         <td><strong>Correo</strong></td>
         <td><strong>Telefono</strong></td>
@@ -151,15 +160,27 @@
         <td>&nbsp;</td>
       </tr>
       <?php
-		if(empty($_POST['bus'])){
+		if(empty($_POST['bus']) && empty($_GET['bus'])){
 			$sql="SELECT * FROM paciente ORDER BY nombre LIMIT $inicio, $maximo";
-		}else{
+		}
+        else if(!empty($_POST['bus'])) {
 			$bus=limpiar($_POST['bus']);
 			$sql="SELECT * FROM paciente WHERE nombre LIKE '%$bus%' or apellidos LIKE '%$bus%' ORDER BY nombre LIMIT $inicio, $maximo";
 		}
+        else if(!empty($_GET['bus'])) {
+            $bus=limpiar($_GET['bus']);
+            $sql="SELECT * FROM paciente WHERE nombre LIKE '%$bus%' ORDER BY nombre LIMIT $inicio, $maximo";   
+        }
+
 		$n=1;
 		$can=mysql_query($sql,Conexion::conectar());
+        if ($dato=mysql_num_rows($can) == 0){
+            echo'<div class="alert alert-error" align="center">
+                    <strong>No Se encontraron pacientes</strong>
+                 </div>';
+        }
 		while($dato=mysql_fetch_array($can)){
+            $paciente1=$dato['id_paciente'];
 	  ?>
       <tr>
         <td><?php echo $dato['nombre'].' '.$dato['apellidos']; ?></td>
@@ -170,16 +191,47 @@
         <td>
         	<center>
         	<a href="#act<?php echo $dato['id_paciente']; ?>" role="button" class="btn btn-info" data-toggle="modal" title="Actualizar Informacion">
-            	Actualizar
+            	<i class="icon-edit"></i>
             </a>
             <?php if($_SESSION['tipo_usuario']=='A'){   ?>
             <a href="#eli<?php echo $dato['id_paciente']; ?>" role="button" class="btn btn-danger" data-toggle="modal" title="Eliminar paciente">
-                Eliminar
+                <i class="icon-trash"></i>
             </a>
              <?php } ?>
+            <a href="#filtro<?php echo $dato['id_paciente']; ?>" role="button" class="btn btn-mini" data-toggle="modal" title="Filtro">
+                <i class="icon-list"></i>
+            </a>
             </center>
         </td>
       </tr>
+
+        <div id="filtro<?php echo $dato['id_paciente']; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header" align="center">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 id="myModalLabel">Filtro del paciente: <?php echo $dato['nombre'].' '.$dato['apellidos'];; ?></h4>
+            </div>
+            <div class="modal-body">
+                        <?php   
+                            $objConsultaAsignacion1=new ConsultarAsignacion($paciente1);
+                            $id_filtro1=$objConsultaAsignacion1->consultar('id_filtro');
+                            $objConsultaFiltro1=new ConsultarFiltroId($id_filtro1);
+                            $numero_lavado1=$objConsultaFiltro1->consultar('numero_lavado');
+                            $estado_filtro1=$objConsultaFiltro1->consultar('estado_filtro');
+                            echo '<div id="" style="overflow:scroll; height:100px;">
+                                    <blockquote>';
+                            echo '<i class="icon-chevron-right"></i> Id Filtro: '.$id_filtro1.'<br>';
+                            echo '<i class="icon-chevron-right"></i> Numero de Lavados: '.$numero_lavado1.'<br>';
+                            echo '<i class="icon-chevron-right"></i> Estado actual del filtro:: '.$estado_filtro1.'<br>';
+
+                            echo '  </blockquote>
+                                </div>';
+                        ?>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i> <strong>Cerrar</strong></button>
+            </div>
+        </div>
+
     <div id="act<?php echo $dato['id_paciente']; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     	<form name="form1" method="post" action="" class="form-inline">
         <input type="hidden" name="id_paciente" value="<?php echo $dato['id_paciente']; ?>">
@@ -209,11 +261,11 @@
                     <strong>Sexo</strong><br>
                     <select name="sexo">
                         <?php if($dato['sexo']=='M'){ ?>
-                        <option value="M" selected>M</option>';		
+                        <option value="M" selected>M</option>		
                         <option value="F">F</option>';
                         <?php }else{ ?>
-                        <option value="F" selected>F</option>';     
-                        <option value="M">M</option>';
+                        <option value="F" selected>F</option>     
+                        <option value="M">M</option>
                         <?php } ?>
                     </select>
                 </div>
@@ -252,7 +304,7 @@
 	<div class="pagination" align="center">
         <ul>
         	<?php
-			if(empty($_POST['bus'])){
+			if(empty($_POST['bus']) && empty($_GET['bus'])) {
 				$tp = ceil($total/$maximo);#funcion que devuelve entero redondeado
          		for	($n=1; $n<=$tp ; $n++){
 					if($pag==$n){
@@ -294,8 +346,8 @@
                     <input type="text" name="edad" autocomplete="off" requerid><br>
                     <strong>Sexo</strong><br>
                     <select name="sexo">
-                        <option value="M" selected>M</option>';
-                        <option value="F">F</option>';
+                        <option value="M" selected>M</option>
+                        <option value="F">F</option>
                     </select>
                 </div>
             </div>

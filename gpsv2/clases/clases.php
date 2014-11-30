@@ -28,6 +28,20 @@ class ConsultarPaciente{
 		return $this->fetch[$campo];
 	}
 }
+class ConsultarPacienteId{
+	
+	private $consulta;
+	private $fetch;
+	
+	function __construct($codigo){
+		$this->consulta = mysql_query("SELECT * FROM paciente WHERE id_paciente=$codigo");
+		$this->fetch = mysql_fetch_array($this->consulta);
+	}
+	
+	function consultar($campo){
+		return $this->fetch[$campo];
+	}
+}
 class ConsultarFiltro{
 	
 	private $consulta;
@@ -35,6 +49,48 @@ class ConsultarFiltro{
 	
 	function __construct($codigo){
 		$this->consulta = mysql_query("SELECT * FROM filtro WHERE estado_filtro='$codigo' ORDER BY id_filtro ASC limit 1");
+		$this->fetch = mysql_fetch_array($this->consulta);
+	}
+	
+	function consultar($campo){
+		return $this->fetch[$campo];
+	}
+}
+class ConsultarFiltroId{
+	
+	private $consulta;
+	private $fetch;
+	
+	function __construct($codigo){
+		$this->consulta = mysql_query("SELECT * FROM filtro WHERE id_filtro='$codigo'");
+		$this->fetch = mysql_fetch_array($this->consulta);
+	}
+	
+	function consultar($campo){
+		return $this->fetch[$campo];
+	}
+}
+class ConsultarAsignacion{
+	
+	private $consulta;
+	private $fetch;
+	
+	function __construct($codigo){
+		$this->consulta = mysql_query("SELECT * FROM asignacion WHERE id_paciente='$codigo'");
+		$this->fetch = mysql_fetch_array($this->consulta);
+	}
+	
+	function consultar($campo){
+		return $this->fetch[$campo];
+	}
+}
+class ConsultarAsignacion2{
+	
+	private $consulta;
+	private $fetch;
+	
+	function __construct($codigo){
+		$this->consulta = mysql_query("SELECT * FROM asignacion WHERE id_filtro='$codigo'");
 		$this->fetch = mysql_fetch_array($this->consulta);
 	}
 	
@@ -104,13 +160,15 @@ class ProcesoFiltro{
 		$this->id_filtro=$id_filtro;	$this->numero_lavado=$numero_lavado;	$this->estado_filtro=$estado_filtro;	$this->razon_desecho=$razon_desecho;
 	}
 	function crear(){
-		$numero_lavado=0;	$estado_filtro="NUEVO";	$razon_desecho="";
-		mysql_query("INSERT INTO filtro (numero_lavado, estado_filtro, razon_desecho) 
-		VALUES ($numero_lavado,'$estado_filtro','$razon_desecho')");
+		mysql_query("INSERT INTO filtro () VALUES ()");
 	}
 	function actualizar(){
 		$id_filtro=$this->id_filtro;	$numero_lavado=$this->numero_lavado;	$estado_filtro=$this->estado_filtro;	$razon_desecho=$this->razon_desecho;
 		mysql_query("UPDATE filtro SET numero_lavado=$numero_lavado,estado_filtro='$estado_filtro', razon_desecho='$razon_desecho'  WHERE id_filtro=$id_filtro");
+	}
+	function actualizar2(){
+		$id_filtro=$this->id_filtro;	$numero_lavado=$this->numero_lavado;
+		mysql_query("UPDATE filtro SET numero_lavado=$numero_lavado WHERE id_filtro=$id_filtro");
 	}
 	function eliminar(){
 		$id_filtro=$this->id_filtro;
@@ -131,6 +189,21 @@ class ProcesoAsignacion{
 		$id_paciente=$this->id_paciente;	$id_filtro=$this->id_filtro;	$fecha_asignacion=$this->fecha_asignacion;
 		mysql_query("UPDATE asignacion SET id_paciente='$id_paciente',id_filtro='$id_filtro' 
 					WHERE id_paciente=$id_paciente");
+	}
+	function eliminar(){
+		$id_filtro=$this->id_filtro;
+		mysql_query("DELETE  FROM asignacion where id_filtro= $id_filtro");
+	}
+}
+class ProcesoRegistro{
+	var $id_paciente;		var $id_filtro;
+	
+	function __construct($id_paciente,$id_filtro){
+		$this->id_filtro=$id_filtro;	$this->id_paciente=$id_paciente;
+	}
+	function crear(){
+		$id_paciente=$this->id_paciente;	$id_filtro=$this->id_filtro;
+		mysql_query("INSERT INTO registro (id_paciente, id_filtro) VALUES ($id_paciente,$id_filtro)");
 	}
 	function eliminar(){
 		$id_filtro=$this->id_filtro;

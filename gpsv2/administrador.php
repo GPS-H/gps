@@ -7,12 +7,6 @@ if(!isset($_SESSION['usuario']) and !isset ($_SESSION['tipo_usuario'])){
 $usuario=limpiar($_SESSION['usuario']);
 $objUsuario=new ConsultarUsuario($usuario);
 $nombre=$objUsuario->consultar('nombre');
-if($_SESSION['tipo_usuario']=='a'){
-  $titulo='Administrador';
-}
-else{
-  $titulo='Enfermera';
-}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -29,7 +23,7 @@ else{
     <link href="css/docs.css" rel="stylesheet">
     <link href="js/google-code-prettify/prettify.css" rel="stylesheet">
     <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-	  <script src="js/jquery.js"></script>
+    <script src="js/jquery.js"></script>
     <script src="js/bootstrap-transition.js"></script>
     <script src="js/bootstrap-alert.js"></script>
     <script src="js/bootstrap-modal.js"></script>
@@ -59,6 +53,7 @@ else{
     <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
     <link rel="shortcut icon" href="ico/est2.png">
 
+
 </head>
 <body data-spy="scroll" data-target=".bs-docs-sidebar">
 	<!-- Navbar
@@ -84,11 +79,14 @@ else{
                 <a href="usuario.php" target="admin"><strong>Usuarios</strong></a>
               </li>
               <li class="active">
-                <a href="asignacion.php" target="admin"><strong>Registros</strong></a>
+                <a href="registro.php" target="admin"><strong>Registros</strong></a>
               </li>
               <?php } ?>
               <li class="active">
-                <a href="reporteexcel.php" target="admin"><strong>Reportes</strong></a>
+                <a href="filtro.php" target="admin"><strong>Filtros</strong></a>
+              </li>
+              <li class="active">
+                <a href="reporte.php" target="admin"><strong>Reportes</strong></a>
               </li>
             </ul>
             <ul class="nav pull-right">

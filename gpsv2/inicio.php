@@ -15,34 +15,19 @@
 		$objUsuario=new ConsultarUsuario($usuario);
 		$nombre=$objUsuario->consultar('nombre');
 		$nombre=ucwords(strtolower($nombre));
-		
-		$can=mysql_query("SELECT COUNT(id_paciente)as numero FROM registro where fecha_lavado>'2014/11/11'");
-		if($dato=mysql_fetch_array($can)){
-			$n_profesor=$dato['numero'];
-            $n_profesor=$n_profesor-360;
-		}
-		$can=mysql_query("SELECT COUNT(nombre)as numero FROM usuario");
-		if($dato=mysql_fetch_array($can)){
-			$n_materias=$dato['numero'];
-            $n_materias=$n_materias-15;
-		}
-		$can=mysql_query("SELECT COUNT(nombre)as numero FROM usuario");
-		if($dato=mysql_fetch_array($can)){
-			$n_alumno=$dato['numero'];
-		}
 ?>
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Inicio</title>
+    <title>Blanco</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="css/css/bootstrap.css" rel="stylesheet" type="text/css"/>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+    
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.min.css" />
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
@@ -78,10 +63,24 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
     <link rel="shortcut icon" href="assets/ico/est2.png">
+    <style>
+    .span4:hover {
+        background-color:white;
+        background-color: rgba(200,200,200,.3);
+        -webkit-border-radius: 10px;
+        border-radius: 10px;          
+        cursor: pointer;
+         margin-top: 5px;    
+    }
+            .img-circle:hover {
+                -webkit-transform: rotate(-7deg);
+                -moz-transform: rotate(-7deg);
+                -o-transform: rotate(-7deg);
+            }
+    </style>
 
 </head>
 <body data-spy="scroll" data-target=".bs-docs-sidebar">
-        <div class="container">
 
             <table class="table table-bordered">
               <tr class="success">
@@ -91,152 +90,133 @@
                 </td>
               </tr>
             </table>
-
-            <!-- Icon Panels - START -->
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-lg-4">
-                        <div class="box">
-                            <div class="icon">
-                                <div class="image"><span class="glyphicon glyphicon-list-alt btn-lg white"></span></div>
-                                <div class="info">
-                                    <h3 class="title">Pacientes nuevos!</h3>
-                                    <p>
-                                        <h3>Ultimos pacientes registrados: <?php echo $n_materias; ?></h3><br>
-                                    </p>
-                                    <div class="more">
-                                        <a href="#" title="Title Link"><i class="fa fa-plus"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="space"></div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-lg-4">
-                        <div class="box">
-                            <div class="icon">
-                                <div class="image"><span class="glyphicon glyphicon-envelope btn-lg white"></span></div>
-                                <div class="info">
-                                    <h3 class="title">Citas!</h3>
-                                    <p>
-                                        <h3>Citas para el dia de hoy: <?php echo $n_alumno; ?></h3><br>
-                                    </p>
-                                    <div class="more">
-                                        <a href="#" title="Title Link"><i class="fa fa-plus"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="space"></div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-lg-4">
-                        <div class="box">
-                            <div class="icon">
-                                <div class="image"><span class="glyphicon glyphicon-volume-up btn-lg white"></span></div>
-                                <div class="info">
-                                    <h3 class="title">Cambio de Filtro!</h3>
-                                    <p>
-                                        <h3>Cantidad de filtros proximos a cambiar: <?php echo $n_profesor; ?></h3><br>
-                                    </p>
-                                    <div class="more">
-                                        <a href="#" title="Title Link"><i class="fa fa-plus"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="space"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <style>
-            .white {
-                color: white;
-            }
-
-            .btn-lg {
-                font-size: 38px;
-                line-height: 1.33;
-                border-radius: 6px;
-            }
-
-            .box > .icon {
-                text-align: center;
-                position: relative;
-            }
-
-            .box > .icon > .image {
-                position: relative;
-                z-index: 2;
-                margin: auto;
-                width: 88px;
-                height: 88px;
-                border: 7px solid white;
-                line-height: 88px;
-                border-radius: 50%;
-                background: #63B76C;
-                vertical-align: middle;
-            }
-
-            .box > .icon:hover > .image {
-                border: 4px solid black;
-            }
-
-            .box > .icon > .image > i {
-                font-size: 40px !important;
-                color: #fff !important;
-            }
-
-            .box > .icon:hover > .image > i {
-                color: white !important;
-            }
-
-            .box > .icon > .info {
-                margin-top: -24px;
-                background: rgba(0, 0, 0, 0.04);
-                border: 1px solid #e0e0e0;
-                padding: 15px 0 10px 0;
-            }
-
-                .box > .icon > .info > h3.title {
-                    color: #222;
-                    font-weight: 500;
-                }
-
-                .box > .icon > .info > p {
-                    color: #666;
-                    line-height: 1.5em;
-                    margin: 20px;
-                }
-
-            .box > .icon:hover > .info > h3.title, .box > .icon:hover > .info > p, .box > .icon:hover > .info > .more > a {
-                color: #222;
-            }
-
-            .box > .icon > .info > .more a {
-                color: #222;
-                line-height: 12px;
-                text-transform: uppercase;
-                text-decoration: none;
-            }
-
-            .box > .icon:hover > .info > .more > a {
-                color: #000;
-                padding: 6px 8px;
-                border-bottom: 4px solid black;
-            }
-
-            .box .space {
-                height: 30px;
-            }
-            </style>
-
-            <!-- Icon Panels - END -->
-
+<?php
+        $can=mysql_query("SELECT COUNT(id_paciente)as numero FROM paciente where fecha_registro>= (select date_add(NOW(), INTERVAL -3 DAY))");
+        if($dato=mysql_fetch_array($can)){
+            $ultimos_pacientes=$dato['numero'];
+        }
+        $can=mysql_query("SELECT COUNT(id_filtro)as numero FROM filtro where estado_filtro = 'NUEVO' and numero_lavado=0");
+        if($dato=mysql_fetch_array($can)){
+            $filtros_nuevos=$dato['numero'];
+        }
+        $can=mysql_query("SELECT COUNT(id_filtro)as numero FROM filtro where estado_filtro = 'USO' and numero_lavado>7");
+        if($dato=mysql_fetch_array($can)){
+            $filtros_viejos=$dato['numero'];
+        }
+?>
+    <div class="row-fluid" align="center">
+        <div class="span4">
+            <h4 align="center">Ultimos  Pacientes Registrados</h4>
+            <img src="img/paciente.jpg" class="img-circle" style="width: 200px; height: 200px;" title="Profesores"><br>
+            <h3>Registrados: <?php echo $ultimos_pacientes; ?></h3><br>
+            <a href="#pacienteU" role="button" class="btn btn-success" data-toggle="modal" >Mas Detalles</a>
         </div>
-    </body>
+        <div class="span4">
+            <h4 align="center">Filtros Nuevos</h4>
+            <img src="img/filtros.jpg" class="img-circle" style="width: 200px; height: 200px;" title="Materias"><br>
+            <h3>Registradas: <?php echo $filtros_nuevos; ?></h3><br>
+            <a href="#filtroN" role="button" class="btn btn-info" data-toggle="modal" >Mas Detalles</a>
+        </div>
+        <div class="span4">
+            <h4 align="center">Filtros por cambiar</h4>
+            <img src="img/filtros2.jpg" class="img-circle" style="width: 200px; height: 200px;" title="Alumnos"><br>
+            <h3>Registrados: <?php echo $filtros_viejos; ?></h3><br>
+            <a href="#filtroV" role="button" class="btn btn-danger" data-toggle="modal" >Mas Detalles</a>
+        </div>
+    </div>
+
+    <div id="pacienteU" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-header" align="center">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 id="myModalLabel">Lista de filtros nuevos</h4>
+            </div>
+            <div class="modal-body">
+                <?php
+                $can1=mysql_query("SELECT * FROM paciente where fecha_registro>= (select date_add(NOW(), INTERVAL -7 DAY))");
+                if ($dato1=mysql_num_rows($can1) == 0){
+                    echo'<div class="alert alert-danger" align="center">
+                            <strong>No hay filtros nuevos! <a href="filtro.php"> Ver filtros</a></strong>
+                         </div>';
+                }
+                else {
+                    while($dato1=mysql_fetch_array($can1)){
+                        $url=$dato1['nombre'];
+                    ?>
+                        <div height:50px;>
+                            <blockquote>
+                                <a href="paciente.php?bus=<?php echo $url; ?>">
+                                    <i class="icon-chevron-right"></i> Nombre: <?php echo $dato1['nombre'].' '.$dato1['apellidos']; ?><br>
+                                </a>
+                            </blockquote>
+                        </div>
+                    <?php }
+                } ?>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i> <strong>Cerrar</strong></button>
+            </div>
+    </div>
+    <div id="filtroN" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-header" align="center">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 id="myModalLabel">Lista de los filtros proximos a cambiar</h4>
+            </div>
+            <div class="modal-body">
+                <?php
+                $can2=mysql_query("SELECT * FROM filtro where estado_filtro = 'NUEVO' and numero_lavado=0");
+                if ($dato2=mysql_num_rows($can2) == 0){
+                    echo'<div class="alert alert-danger" align="center">
+                            <strong>No hay filtros nuevos! <a href="filtro.php"> Ver filtros</a></strong>
+                         </div>';
+                }
+                else{
+                    while($dato2=mysql_fetch_array($can2)) {
+                        $url2=$dato2['id_filtro'];
+                    ?>
+                        <div height:50px;>
+                            <blockquote>
+                                <a href="filtro.php?bus=<?php echo $url2; ?>">
+                                    <i class="icon-chevron-right"></i> Id Filtro: <?php echo $dato2['id_filtro']; ?><br>
+                                </a>
+                            </blockquote>
+                        </div>
+                    <?php }
+                }   ?>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i> <strong>Cerrar</strong></button>
+            </div>
+    </div>
+    <div id="filtroV" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-header" align="center">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 id="myModalLabel">Lista de los ultimos pacientes registrados:</h4>
+            </div>
+            <div class="modal-body">
+                <?php
+                $can3=mysql_query("SELECT * FROM filtro where estado_filtro = 'USO' and numero_lavado>7");
+                if ($dato3=mysql_num_rows($can3) == 0){
+                    echo'<div class="alert alert-info" align="center">
+                            <strong>No hay filtro proximos a cambiar <a href="filtro.php"> Ver filtros</a></strong>
+                         </div>';
+                }
+                else{
+                    while($dato3=mysql_fetch_array($can3)) {
+                    $url3=$dato3['id_filtro'];
+                ?>
+                    <div height:50px;>
+                        <blockquote>
+                            <a href="filtro.php?bus=<?php echo $url3; ?>">
+                                <i class="icon-chevron-right"></i> Id Filtro: <?php echo $dato3['id_filtro']; ?><br>
+                            </a>
+                        </blockquote>
+                    </div>
+                    <?php } 
+                } ?>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i> <strong>Cerrar</strong></button>
+            </div>
+    </div>
 </body>
 </html>

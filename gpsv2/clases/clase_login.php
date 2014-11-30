@@ -17,9 +17,9 @@ class Login{
 				header("Location:index.php?usuario=inactivo");
 			}
 			else{
-				$_SESSION['usuario']=$registro['usuario'];
-				$_SESSION['tipo_usuario']=$registro['tipo'];
 				if($registro['estado']=='Y'){
+					$_SESSION['usuario']=$registro['usuario'];
+					$_SESSION['tipo_usuario']=$registro['tipo'];
 					header('location:administrador.php');
 				}
 			}
