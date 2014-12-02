@@ -221,7 +221,7 @@
                                     <blockquote>';
                             echo '<i class="icon-chevron-right"></i> Id Filtro: '.$id_filtro1.'<br>';
                             echo '<i class="icon-chevron-right"></i> Numero de Lavados: '.$numero_lavado1.'<br>';
-                            echo '<i class="icon-chevron-right"></i> Estado actual del filtro:: '.$estado_filtro1.'<br>';
+                            echo '<i class="icon-chevron-right"></i> Estado actual del filtro: '.$estado_filtro1.'<br>';
 
                             echo '  </blockquote>
                                 </div>';

@@ -32,6 +32,37 @@
                         <strong>"Filtros agregados: '.$cantidad.'"</strong>
                         </div>';
         }
+        if( isset($_POST['desechar']) ){
+            $registrosfiltros=mysql_query("SELECT * FROM filtro WHERE numero_lavado=0 and estado_filtro='NUEVO'");
+            if ($datoss=mysql_num_rows($registrosfiltros) == 0){
+                $msg='  <div class="alert alert-danger" align="center">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>"No se pudo realizar la operacion, no hay filtros disponibles!"</strong>
+                        </div>';
+            }else{
+                $id_filtro=limpiar($_POST['id_filtro']);            $id_paciente=limpiar($_POST['id_paciente']); 
+                $numero_lavado=limpiar($_POST['numero_lavado']);    $razon_desecho=limpiar($_POST['razon_desecho']);
+                $estado_filtro='DESECHADO';
+                $objFiltro= new ProcesoFiltro($id_filtro,$numero_lavado,$estado_filtro,$razon_desecho);
+                $objFiltro->actualizar();
+                $objAsignacion=new ProcesoAsignacion($id_paciente,$id_filtro);
+                $objAsignacion->eliminar();
+                $estado_filtro2='NUEVO';
+                $objFiltro2=new ConsultarFiltro($estado_filtro2);
+                $id_filtro2=$objFiltro2->consultar('id_filtro');
+                $numero_lavado2=$objFiltro2->consultar('numero_lavado');
+                $estado_filtro3='USO';
+                $razon_desecho2=$objFiltro2->consultar('razon_desecho');
+                $objFiltro3= new ProcesoFiltro($id_filtro2,$numero_lavado2,$estado_filtro3,$razon_desecho2);
+                $objFiltro3->actualizar();
+                $objAsignacion2=new ProcesoAsignacion($id_paciente,$id_filtro2);
+                $objAsignacion2->crear();
+                $msg='  <div class="alert alert-success" align="center">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <strong>estado filtro--> '.$estado_filtro3.'(ultimo), Filtro--> '.$id_filtro2.' (id_filtro nuevo), numero_lavado--> '.$numero_lavado2.' razon_desecho-->'.$razon_desecho2.'</strong>
+                        </div>';
+            }
+        }
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -114,7 +145,7 @@
       </tr>
       <?php
 		if(empty($_POST['bus']) && empty($_GET['bus'])){
-			$sql="SELECT * FROM filtro  ORDER BY id_filtro LIMIT $inicio, $maximo";
+			$sql="SELECT * FROM filtro  where estado_filtro <> 'DESECHADO' ORDER BY id_filtro LIMIT $inicio, $maximo";
 		}
         else if(!empty($_POST['bus'])) {
 			$bus=limpiar($_POST['bus']);
@@ -144,8 +175,8 @@
         <td><?php echo $dato['estado_filtro'];?></td>
         <td>
             <center>
-            <a href="#eli<?php echo $dato['id_filtro']; ?>" role="button" class="btn btn-danger" data-toggle="modal" title="Eliminar filtro">
-                <i class="icon-remove"></i>
+            <a href="#desechar<?php echo $dato['id_filtro']; ?>" role="button" class="btn btn-warning" data-toggle="modal" title="Eliminar filtro">
+                <i class="icon-trash"></i>
             </a>
             <a href="#paciente<?php echo $dato['id_filtro']; ?>" role="button" class="btn btn-mini" data-toggle="modal" title="Paciente">
                 <i class="icon-list"></i>
@@ -213,6 +244,38 @@
         </div>
         </form>
     </div>  
+
+                    <div id="desechar<?php echo $dato['id_filtro']; ?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <form name="form1" method="post" action="" class="form-inline">
+                            <?php   
+                                $objConsultaAsignacion=new ConsultarAsignacion2($dato['id_filtro']);
+                                $id_paciente1=$objConsultaAsignacion->consultar('id_paciente');
+                                $objConsultaPaciente=new ConsultarPacienteId($id_paciente1);
+                                $nombre=$objConsultaPaciente->consultar('nombre');
+                                $apellidos=$objConsultaPaciente->consultar('apellidos');
+                            ?>
+                            <input type="hidden" name="id_filtro" value="<?php echo $dato['id_filtro']; ?>">
+                            <input type="hidden" name="id_paciente" value="<?php echo $id_paciente1; ?>">
+                            <input type="hidden" name="numero_lavado" value="<?php echo $dato['numero_lavado']; ?>">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h3 id="myModalLabel">Desechar Filtro</h3>
+                                <h5 type="text" name="num"><?php echo '<strong> Usos: </strong>'.$dato['numero_lavado']; ?></h5><br>
+                                <h5 type="text" name="nombre"><?php echo '<strong> Nombre del paciente: </strong>'.$nombre.' '.$apellidos; ?></h5><br>
+                                <h5 type="text" name="mensaje"><strong> Una vez desechado, el sistema le asignará otro filtro disponible al paciente de manera automática.</strong></h5><br>
+                                <h5> Razon de desecho</h5>
+                                <select name="razon_desecho">
+                                    <option value="ROTO" selected>Roto</option>
+                                    <option value="EXTRAVIO">Extravio</option>
+                                    <option value="SUCIO">Sucio</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn" data-dismiss="modal" aria-hidden="true"><i class="icon-remove"></i> <strong>Cancelar</strong></button>
+                                <button type="submit" name="desechar" class="btn btn-success"><i class="icon-ok"></i> <strong>Desechar</strong></button>
+                            </div>
+                        </form>
+                    </div>  
 
     <?php } ?>
     </table>

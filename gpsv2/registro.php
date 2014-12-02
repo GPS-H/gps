@@ -34,14 +34,15 @@
                         </div>';
         }
         else if(isset($_POST['guardar2'])){
-                $id_filtro=limpiar($_POST['id_filtro']);     $id_paciente=limpiar($_POST['id_paciente']);   $numero_lavado=limpiar($_POST['numero_lavado']);
-                $estado_filtro=limpiar($_POST['estado_filtro']);    $razon_desecho=limpiar($_POST['razon_desecho']);
+                $id_filtro=limpiar($_POST['id_filtro']);            $id_paciente=limpiar($_POST['id_paciente']);   
+                $numero_lavado=limpiar($_POST['numero_lavado']);    $estado_filtro=limpiar($_POST['estado_filtro']);    
+                $razon_desecho=limpiar($_POST['razon_desecho']);
                 $objGuardarRegistro=new ProcesoRegistro($id_paciente,$id_filtro);
                 $objGuardarRegistro->crear();
                 $numero_lavado++;
                 $objActualizarFiltro=new ProcesoFiltro($id_filtro,$numero_lavado,$estado_filtro,$razon_desecho);
                 $objActualizarFiltro->actualizar();
-                $objetoEliminarAsignacion=new ProcesoAsignacion("",$id_filtro);
+                $objetoEliminarAsignacion=new ProcesoAsignacion($id_paciente,$id_filtro);
                 $objetoEliminarAsignacion->eliminar();
                 $estado_filtro='NUEVO';
                 $objConsultaFiltro=new ConsultarFiltro($estado_filtro);

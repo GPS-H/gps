@@ -164,7 +164,7 @@ class ProcesoFiltro{
 	}
 	function actualizar(){
 		$id_filtro=$this->id_filtro;	$numero_lavado=$this->numero_lavado;	$estado_filtro=$this->estado_filtro;	$razon_desecho=$this->razon_desecho;
-		mysql_query("UPDATE filtro SET numero_lavado=$numero_lavado,estado_filtro='$estado_filtro', razon_desecho='$razon_desecho'  WHERE id_filtro=$id_filtro");
+		mysql_query("UPDATE filtro SET numero_lavado=$numero_lavado, estado_filtro='$estado_filtro', razon_desecho='$razon_desecho'  WHERE id_filtro=$id_filtro");
 	}
 	function actualizar2(){
 		$id_filtro=$this->id_filtro;	$numero_lavado=$this->numero_lavado;
@@ -191,8 +191,8 @@ class ProcesoAsignacion{
 					WHERE id_paciente=$id_paciente");
 	}
 	function eliminar(){
-		$id_filtro=$this->id_filtro;
-		mysql_query("DELETE  FROM asignacion where id_filtro= $id_filtro");
+		$id_filtro=$this->id_filtro;	$id_paciente=$this->id_paciente;
+		mysql_query("DELETE  FROM asignacion where id_filtro= $id_filtro and id_paciente=$id_paciente");
 	}
 }
 class ProcesoRegistro{
