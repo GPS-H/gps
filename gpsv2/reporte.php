@@ -1,9 +1,10 @@
+
 <?php
-        require_once("clases/clase_login.php");
-        include_once('clases/clases.php');
-        if(!isset($_SESSION['usuario']) and !isset ($_SESSION['tipo_usuario'])){
-          header('location:index.php');
-        }
+    require_once("clases/clase_login.php");
+    include_once('clases/clases.php');
+    if(!isset($_SESSION['usuario']) and !isset ($_SESSION['tipo_usuario'])){
+    header('location:index.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +16,10 @@
     <meta name="author" content="">
 
     <!-- Le styles -->
+        <script type="text/javascript" src="js/jquery.js"></script>
+    <style type="text/css">
+        ${demo.css}
+    </style>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
     <link href="css/docs.css" rel="stylesheet">
@@ -63,35 +68,33 @@
                 <div class="span5" align="left" >
                     <form name="form1" method="post" action="" class="form-inline">
                     <!-- INGRESAR NUEVA curso -->
-                        <a href="reporteexcel.php" role="button" class="btn" data-toggle="modal">
+                        <a role="button" class="btn" data-toggle="modal" onclick="dibujar();">
                             <i class="icon-book"></i> <strong>Generar Grafica</strong>
                         </a> |
                         <div class="input-prepend">
                             <span class="add-on"><i class="icon-search"></i></span>
-                            <select name="grafica">
-                                <option value="grafica1" selected>Grafica1</option>
-                                <option value="grafica2">Grafica2</option>
-                                <option value="grafica3">Grafica3</option>
-                                <option value="grafica4">Grafica4</option>
-                                <option value="grafica5">Grafica5</option>
+                            <select name="grafica" id="lista">
+                                <option value="inicio" selected>Graficar</option>
+                                <option onclick="obtenerPacientesEdades();" value="pacienteEdad">Pacientes por edad</option>
+                                <option onclick="obtenerLavados();" value="filtrosUsos">Filtros por uso</option>
+                                <option onclick="obtenerRazon();" value="desechoRazon">Razones de desecho</option>
                             </select>
                         </div>
                     </form>
                 </div>
                 <div class="span6" align="right" >
-                    <form name="form1" method="post" action="" class="form-inline">
+                    <form name="form1" method="post" action="" class="form-inline" >
                     <!-- INGRESAR NUEVA curso -->
-                        <a href="reporteexcel.php" role="button" class="btn" data-toggle="modal">
+                        <a role="button" class="btn" data-toggle="modal" onclick="descargar();">
                             <i class="icon-book"></i> <strong>Generar Reporte</strong>
                         </a> |
                         <div class="input-prepend">
                             <span class="add-on"><i class="icon-search"></i></span>
-                            <select name="grafica">
-                                <option value="reporte1" selected>Reporte1</option>
-                                <option value="reporte2">Reporte2</option>
-                                <option value="reporte3">Reporte3</option>
-                                <option value="reporte4">Reporte4</option>
-                                <option value="reporte5">Reporte5</option>
+                            <select name="reporte" id="lista2">
+                                <option value="reporte1" selected>Reportes</option>
+                                <option  value="reporteFull">Pacientes</option>
+                                <option value="reportePacienteFiltro">Pacientes y sus filtros</option>
+                                <option value="reporteFiltros">Filtros</option>
                             </select>
                         </div>
                     </form>
@@ -100,5 +103,13 @@
         </td>
       </tr>
     </table>
+    <script src="js/graficas/numeroLavados.js"></script>
+    <script src="js/graficas/pacientesEdades.js"></script>
+    <script src="js/graficas/desechoRazon.js"></script>
+    <script src="js/graficas/control.js"></script>
+    <script src="libreriaGraficas/js/highcharts.js"></script>
+    <script src="libreriaGraficas/js/modules/exporting.js"></script>
+    <script src="libreriaGraficas/js/highcharts-3d.js"></script>
+    <div id="container" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
 </body>
 </html>
